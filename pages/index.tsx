@@ -28,6 +28,7 @@ export default function MangaHome() {
   }
   if (isError && error instanceof Error) {
     return <div>Error! {error.message}</div>;
+    console.error(error, 5);
   }
   return (
     <TableContainer component={Paper}>
