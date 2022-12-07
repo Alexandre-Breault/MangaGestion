@@ -12,6 +12,7 @@ export default async function mangaHandler(
     case "GET":
       // Get data from your database
       res.status(200).json(await prisma.manga.findMany());
+      prisma.$disconnect();
       break;
     case "POST":
       // create data in your database
@@ -27,14 +28,7 @@ export default async function mangaHandler(
       );
       break;
     default:
-      res.setHeader("Allow", ["GET", "PUT"]);
+      res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
-}
-function data(
-  arg0: { where: { id: string | string[] | undefined } },
-  data: any,
-  arg2: { numero: any; title: any; updatedAt: Date }
-): any {
-  throw new Error("Function not implemented.");
 }

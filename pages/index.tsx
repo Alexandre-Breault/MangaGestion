@@ -22,14 +22,15 @@ export async function getStaticProps() {
 }
 
 export default function MangaHome() {
-  const { data, error, isError, isLoading } = useQuery("mangas", getManga);
+  const { data, error, isError, isLoading } = useQuery("mangas", getManga, {
+    enabled: false,
+    staleTime: Infinity,
+  });
   if (isLoading) {
     return <div>Loading...</div>;
   }
   if (isError && error instanceof Error) {
-    console.log(error);
     return <div>Error! {error.message}</div>;
-    console.error(error, 5);
   }
   return (
     <TableContainer component={Paper}>

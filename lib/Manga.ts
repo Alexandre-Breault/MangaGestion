@@ -1,7 +1,10 @@
 export function getManga() {
-  const urlApi = process.env.VERCEL_URL + "/api/manga";
-  console.log(urlApi);
-  const request = fetch(urlApi);
-  const data = request.then((json) => json.json());
-  return data;
+  console.log("CALL API");
+  const resquest = fetch(process.env.VERCEL_URL + "/api/manga", {
+    method: "GET",
+    mode: "cors",
+  }).then((data) => {
+    return data.json();
+  });
+  return resquest;
 }
