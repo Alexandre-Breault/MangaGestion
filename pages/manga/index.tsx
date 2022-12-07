@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import { Manga } from "@prisma/client";
 import { dehydrate, QueryClient, useQuery } from "react-query";
-import { getManga } from "../lib/Manga";
+import { getManga } from "../../lib/Manga";
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
