@@ -1,4 +1,5 @@
 import {
+  Alert,
   Paper,
   Table,
   TableBody,
@@ -7,29 +8,23 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import { Manga } from "@prisma/client";
-import { dehydrate, QueryClient, useQuery } from "react-query";
+import useSWR from "swr";
 import { getManga } from "../lib/Manga";
+import { Manga, PrismaClient } from "@prisma/client";
 
-export async function getStaticProps() {
-  const queryClient = new QueryClient();
-  await queryClient.prefetchQuery("mangas", getManga);
-  return {
-    props: {
-      dehydratedState: dehydrate(queryClient),
+export const getStaticProps = async () => {
+  const prisma = new PrismaClient();
+  const manga = await prisma.manga.findMany({
+    select: {
+      title: true,
+      id: true,
+      numero: true,
     },
-  };
-}
+  });
+  return { props: { manga } };
+};
 
-export default function MangaHome() {
-  const { data, error, isError, isLoading } = useQuery("mangas", getManga);
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-  if (isError && error instanceof Error) {
-    console.log(error);
-    return <div>Error! {error.message}</div>;
-  }
+export default function MangaHome({ manga }: any) {
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -41,7 +36,7 @@ export default function MangaHome() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.map((element: Manga, index: number) => (
+          {manga.map((element: Manga, index: number) => (
             <TableRow key={element.id}>
               <TableCell component='th' scope='row'>
                 {index + 1}
