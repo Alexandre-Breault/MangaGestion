@@ -12,14 +12,8 @@ import { Manga, PrismaClient } from "@prisma/client";
 
 export const getStaticProps = async () => {
   const prisma = new PrismaClient();
-  const manga = await prisma.manga.findMany({
-    select: {
-      title: true,
-      id: true,
-      numero: true,
-    },
-  });
-  return { props: { manga } };
+  const manga = await prisma.manga.findMany();
+  return { props: { manga: JSON.parse(JSON.stringify(manga)) } };
 };
 
 export default function MangaHome({ manga }: any) {
