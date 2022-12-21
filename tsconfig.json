@@ -15,6 +15,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/Manga.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "lib/Manga.ts", "pages/server.js"],
   "exclude": ["node_modules"]
 }

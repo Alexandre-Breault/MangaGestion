@@ -1,44 +1,32 @@
-import {
-  Alert,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-} from "@mui/material";
+"use client";
 import { Manga, PrismaClient } from "@prisma/client";
+import { Grid } from "@nextui-org/react";
+import TableManga from "../components/TableManga";
+import { InferGetStaticPropsType } from "next";
+import Layout from "../components/Layout/Layout";
 
-export const getStaticProps = async () => {
+export async function getStaticProps() {
   const prisma = new PrismaClient();
-  const manga = await prisma.manga.findMany();
-  return { props: { manga: JSON.parse(JSON.stringify(manga)) } };
-};
+  const manga: Manga[] = JSON.parse(
+    JSON.stringify(await prisma.manga.findMany())
+  );
+  return {
+    props: {
+      manga,
+    },
+  };
+}
 
-export default function MangaHome({ manga }: any) {
+export default function MangaHome({
+  manga,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>#</TableCell>
-            <TableCell>Titre</TableCell>
-            <TableCell>Numero</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {manga.map((element: Manga, index: number) => (
-            <TableRow key={element.id}>
-              <TableCell component='th' scope='row'>
-                {index + 1}
-              </TableCell>
-              <TableCell>{element.title}</TableCell>
-              <TableCell>{element.numero}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <Layout>
+      <Grid.Container gap={2}>
+        <Grid xs={12} md={6}>
+          <TableManga manga={manga} />
+        </Grid>
+      </Grid.Container>
+    </Layout>
   );
 }
