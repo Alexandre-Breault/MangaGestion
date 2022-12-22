@@ -1,4 +1,4 @@
-import FormMangaAdd from "../../../components/FormMangaAdd";
+import FormMangaAdd from "../../../src/components/FormMangaAdd";
 
 export default function Home() {
   return <FormMangaAdd />;
