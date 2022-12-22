@@ -1,8 +1,8 @@
 import { Manga, PrismaClient } from "@prisma/client";
 import { Grid } from "@nextui-org/react";
-import TableManga from "../components/TableManga";
 import { InferGetStaticPropsType } from "next";
-import Layout from "../components/Layout/Layout";
+import Layout from "../src/components/Layout/Layout";
+import TableManga from "../src/components/TableManga";
 
 export async function getStaticProps() {
   const prisma = new PrismaClient();
