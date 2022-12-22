@@ -1,4 +1,3 @@
-"use client";
 import { Manga, PrismaClient } from "@prisma/client";
 import { Grid } from "@nextui-org/react";
 import TableManga from "../components/TableManga";
