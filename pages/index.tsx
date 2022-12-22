@@ -3,12 +3,10 @@ import { Grid } from "@nextui-org/react";
 import { InferGetStaticPropsType } from "next";
 import Layout from "../src/components/Layout/Layout";
 import TableManga from "../src/components/TableManga";
+import { getManga } from "../src/lib/Manga";
 
 export async function getStaticProps() {
-  const prisma = new PrismaClient();
-  const manga: Manga[] = JSON.parse(
-    JSON.stringify(await prisma.manga.findMany())
-  );
+  const manga: Manga[] = await getManga();
   return {
     props: {
       manga,
